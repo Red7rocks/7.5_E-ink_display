@@ -1,0 +1,9 @@
+services:
+  eink:
+    container_name: E-ink_web_viewer
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../images:/www
+    restart: unless-stopped

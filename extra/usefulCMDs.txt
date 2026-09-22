@@ -1,0 +1,5 @@
+sudo supervisorctl status
+sudo supervisorctl stop eink-dashboard
+sudo supervisorctl start eink-dashboard
+sudo supervisorctl restart eink-dashboard
+sudo supervisorctl tail -f eink-dashboard
