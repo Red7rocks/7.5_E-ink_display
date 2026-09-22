@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 from PIL import Image, ImageDraw, ImageFont
-from data import WEATHER_ICON_MAP_DAY, WEATHER_ICON_MAP_NIGHT, get_weather_icon_category
+from data import STATUS_LABELS, WEATHER_ICON_MAP_DAY, WEATHER_ICON_MAP_NIGHT, get_weather_icon_category, truncate_name, draw_text_right_aligned
 import datetime
 
 EPD_WIDTH = 800
@@ -36,13 +36,6 @@ server_block_ystart = 260
 docker_section_ystart = 257
 pi_block_ystart = 375
 text_space = 35
-
-STATUS_LABELS = {
-    "RUNNING": "Printing",
-    "PAUSE": "Paused",
-    "FINISH": "Finished",
-    "IDLE": "Idle",
-}
 
 def render_dashboard(stats):
     image = Image.new('1', (EPD_WIDTH, EPD_HEIGHT), 255)
@@ -179,16 +172,6 @@ def draw_docker_columns(draw, stats, y_start):
         indicator = "●" if container["up"] else "○"
         name = truncate_name(container["name"])
         draw.text((right_x, y), f"{indicator} {name}", font=font_mini, fill=0)
-
-def truncate_name(name, max_length=20):
-    if len(name) > max_length:
-        return name[:max_length] + "..."
-    return name
-
-def draw_text_right_aligned(draw, right_x, y, text, font, fill=0):
-    text_width = draw.textlength(text, font=font)
-    x = right_x - text_width
-    draw.text((x, y), text, font=font, fill=fill)
 
 def drawBorders(draw):
     draw.rectangle(

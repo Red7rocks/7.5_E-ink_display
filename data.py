@@ -29,6 +29,14 @@ _printer_status = {
     "bed_temp": None,
     "remaining_min": None,
 }
+
+STATUS_LABELS = {
+    "RUNNING": "Printing",
+    "PAUSE": "Paused",
+    "FINISH": "Finished",
+    "IDLE": "Idle",
+}
+
 _printer_lock = threading.Lock()
 _finish_transition_time = None
 
@@ -360,6 +368,16 @@ def get_pi_docker_status():
     except Exception as e:
         print(f"Pi Docker status fetch failed: {e}")
         return []
+
+def truncate_name(name, max_length=20):
+    if len(name) > max_length:
+        return name[:max_length] + "..."
+    return name
+
+def draw_text_right_aligned(draw, right_x, y, text, font, fill=0):
+    text_width = draw.textlength(text, font=font)
+    x = right_x - text_width
+    draw.text((x, y), text, font=font, fill=fill)
 
 def get_stats():
     desktop = get_desktop_stats()
