@@ -49,7 +49,7 @@ This project is designed to display the following items on a waveshare 7.5 inch 
 The webviewer directory also contains a second docker compose file, for running a simple webpage that mirrors the current
 display of your dashboard to a webpage. this is handy for tinkering with the screen remotely/when you are not at your desk.
 
-    Note:
+Note:
     Upon completion of the core development of the project, 
     non-necessary files were moved to 'extra' for ease of use of the project.
     These files may need to be moved to the base dir to function
