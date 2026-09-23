@@ -11,13 +11,14 @@ DOCKER_FONT_PATH = os.environ.get("condensed_font")
 WEATHER_FONT_PATH = os.environ.get("weather_font")
 
 font_weather_icon = ImageFont.truetype(WEATHER_FONT_PATH, 65)
-font_day = ImageFont.truetype(FONT_PATH, 60)
-font_large = ImageFont.truetype(FONT_PATH, 45)
+font_day = ImageFont.truetype(DOCKER_FONT_PATH, 50)
+font_large = ImageFont.truetype(DOCKER_FONT_PATH, 45)
 font_temp = ImageFont.truetype(FONT_PATH, 40)
 font_header = ImageFont.truetype(FONT_PATH, 30)
 font_paragraph = ImageFont.truetype(FONT_PATH, 25)
 font_small = ImageFont.truetype(FONT_PATH, 20)
 font_docker = ImageFont.truetype(DOCKER_FONT_PATH, 20)
+font_precip = ImageFont.truetype(DOCKER_FONT_PATH, 30)
 font_mini = ImageFont.truetype(DOCKER_FONT_PATH, 15)
 
 CLOCK_X = 8
@@ -51,7 +52,7 @@ def render_dashboard(stats):
     # Clock block
     currentDate = datetime.datetime.now();
     draw.text((CLOCK_X, CLOCK_Y), stats["time"], font=font_large, fill=0)
-    draw.text((DATE_X, DATE_Y), currentDate.strftime("%b %d, %Y"), font=font_header, fill=0)
+    draw.text((DATE_X, DATE_Y), currentDate.strftime("%b %d, %Y"), font=font_precip, fill=0)
     draw.text((400, 50), currentDate.strftime("%A"), font=font_day, fill=0, anchor="mm")
 
     #Weather block
@@ -64,7 +65,7 @@ def render_dashboard(stats):
     draw_text_right_aligned(draw, 690, CLOCK_Y, temp_str, font=font_large)
 
     precip_str = f"{weather['precip_chance']}% PoP" if weather['precip_chance'] is not None else ""
-    draw_text_right_aligned(draw, 690, DATE_Y, precip_str, font=font_header)
+    draw_text_right_aligned(draw, 690, DATE_Y, precip_str, font=font_precip)
 
     # Desktop block
     draw.text((10, desktop_block_ystart), "Desktop:", font=font_header, fill=0)
